@@ -253,13 +253,11 @@
                     <detExport>
                         <nDraw>{{ export.nDraw }}</nDraw>
                         {% if export.exportInd is defined %}
-                        {% for exp in export.exportInd %}
                         <exportInd>
-                            <nRE>{{ exp.nRE }}</nRE>
-                            <chNFe>{{ exp.chNFe }}</chNFe>
-                            <qExport>{{ exp.qExport }}</qExport>
+                            <nRE>{{ export.exportInd.nRE }}</nRE>
+                            <chNFe>{{ export.exportInd.chNFe }}</chNFe>
+                            <qExport>{{ export.exportInd.qExport }}</qExport>
                         </exportInd>
-                        {% endfor %}
                         {% endif %}
                     </detExport>
                     {% endfor %}
@@ -277,42 +275,40 @@
                     </rastro>
                     {% endfor %}
                     {% if prod.veicProd is defined %}
-                    {% for veicProd in prod.veicProd %}
                     <veicProd>
-                        <tpOp>{{ veicProd.tpOp }}</tpOp>
-                        <chassi>{{ veicProd.chassi }}</chassi>
-                        <cCor>{{ veicProd.cCor }}</cCor>
-                        <xCor>{{ veicProd.xCor }}</xCor>
-                        <pot>{{ veicProd.pot }}</pot>
-                        <cilin>{{ veicProd.cilin }}</cilin>
-                        <pesoL>{{ veicProd.pesoL }}</pesoL>
-                        <pesoB>{{ veicProd.pesoB }}</pesoB>
-                        <nSerie>{{ veicProd.nSerie }}</nSerie>
-                        <tpComb>{{ veicProd.tpComb }}</tpComb>
-                        <nMotor>{{ veicProd.nMotor }}</nMotor>
-                        <CMT>{{ veicProd.CMT }}</CMT>
-                        <dist>{{ veicProd.dist }}</dist>
-                        <anoMod>{{ veicProd.anoMod }}</anoMod>
-                        <anoFab>{{ veicProd.anoFab }}</anoFab>
-                        <tpPint>{{ veicProd.tpPint }}</tpPint>
-                        <tpVeic>{{ veicProd.tpVeic }}</tpVeic>
-                        <espVeic>{{ veicProd.espVeic }}</espVeic>
-                        <VIN>{{ veicProd.VIN }}</VIN>
-                        <condVeic>{{ veicProd.condVeic }}</condVeic>
-                        <cMod>{{ veicProd.cMod }}</cMod>
-                        <cCorDENATRAN>{{ veicProd.cCorDENATRAN }}</cCorDENATRAN>
-                        <lota>{{ veicProd.lota }}</lota>
-                        <tpRest>{{ veicProd.tpRest }}</tpRest>
+                        <tpOp>{{ prod.veicProd.tpOp }}</tpOp>
+                        <chassi>{{ prod.veicProd.chassi }}</chassi>
+                        <cCor>{{ prod.veicProd.cCor }}</cCor>
+                        <xCor>{{ prod.veicProd.xCor }}</xCor>
+                        <pot>{{ prod.veicProd.pot }}</pot>
+                        <cilin>{{ prod.veicProd.cilin }}</cilin>
+                        <pesoL>{{ prod.veicProd.pesoL }}</pesoL>
+                        <pesoB>{{ prod.veicProd.pesoB }}</pesoB>
+                        <nSerie>{{ prod.veicProd.nSerie }}</nSerie>
+                        <tpComb>{{ prod.veicProd.tpComb }}</tpComb>
+                        <nMotor>{{ prod.veicProd.nMotor }}</nMotor>
+                        <CMT>{{ prod.veicProd.CMT }}</CMT>
+                        <dist>{{ prod.veicProd.dist }}</dist>
+                        <anoMod>{{ prod.veicProd.anoMod }}</anoMod>
+                        <anoFab>{{ prod.veicProd.anoFab }}</anoFab>
+                        <tpPint>{{ prod.veicProd.tpPint }}</tpPint>
+                        <tpVeic>{{ prod.veicProd.tpVeic }}</tpVeic>
+                        <espVeic>{{ prod.veicProd.espVeic }}</espVeic>
+                        <VIN>{{ prod.veicProd.VIN }}</VIN>
+                        <condVeic>{{ prod.veicProd.condVeic }}</condVeic>
+                        <cMod>{{ prod.veicProd.cMod }}</cMod>
+                        <cCorDENATRAN>{{ prod.veicProd.cCorDENATRAN }}</cCorDENATRAN>
+                        <lota>{{ prod.veicProd.lota }}</lota>
+                        <tpRest>{{ prod.veicProd.tpRest }}</tpRest>
                     </veicProd>
-                    {% endfor %}
                     {% endif %}
-                    {% for med in prod.med %}
+                    {% if prod.med is defined %}
                     <med>
-                        <cProdANVISA>{{ med.cProdANVISA }}</cProdANVISA>
-                        <xMotivoIsencao>{{ med.xMotivoIsencao }}</xMotivoIsencao>
-                        <vPMC>{{ med.vPMC }}</vPMC>
+                        <cProdANVISA>{{ prod.med.cProdANVISA }}</cProdANVISA>
+                        <xMotivoIsencao>{{ prod.med.xMotivoIsencao }}</xMotivoIsencao>
+                        <vPMC>{{ prod.med.vPMC }}</vPMC>
                     </med>
-                    {% endfor %}
+                    {% endif %}
                     {% if prod.arma is defined %}
                     {% for arma in prod.arma %}
                     <arma>
@@ -324,35 +320,33 @@
                     {% endfor %}
                     {% endif %}
                     {% if prod.comb is defined %}
-                    {% for comb in prod.comb %}
                     <comb>
-                        <cProdANP>{{ comb.cProdANP }}</cProdANP>
-                        <descANP>{{ comb.descANP }}</descANP>
-                        <pGLP>{{ comb.pGLP }}</pGLP>
-                        <pGNn>{{ comb.pGNn }}</pGNn>
-                        <pGNi>{{ comb.pGNi }}</pGNi>
-                        <vPart>{{ comb.vPart }}</vPart>
-                        <CODIF>{{ comb.CODIF }}</CODIF>
-                        <qTemp>{{ comb.qTemp }}</qTemp>
-                        <UFCons>{{ comb.UFCons }}</UFCons>
-                        {% if comb.CIDE is defined %}
+                        <cProdANP>{{ prod.comb.cProdANP }}</cProdANP>
+                        <descANP>{{ prod.comb.descANP }}</descANP>
+                        <pGLP>{{ prod.comb.pGLP }}</pGLP>
+                        <pGNn>{{ prod.comb.pGNn }}</pGNn>
+                        <pGNi>{{ prod.comb.pGNi }}</pGNi>
+                        <vPart>{{ prod.comb.vPart }}</vPart>
+                        <CODIF>{{ prod.comb.CODIF }}</CODIF>
+                        <qTemp>{{ prod.comb.qTemp }}</qTemp>
+                        <UFCons>{{ prod.comb.UFCons }}</UFCons>
+                        {% if prod.comb.CIDE is defined %}
                         <CIDE>
-                            <qBCProd>{{ comb.CIDE.qBCProd }}</qBCProd>
-                            <vAliqProd>{{ comb.CIDE.vAliqProd }}</vAliqProd>
-                            <vCIDE>{{ comb.CIDE.vCIDE }}</vCIDE>
+                            <qBCProd>{{ prod.comb.CIDE.qBCProd }}</qBCProd>
+                            <vAliqProd>{{ prod.comb.CIDE.vAliqProd }}</vAliqProd>
+                            <vCIDE>{{ prod.comb.CIDE.vCIDE }}</vCIDE>
                         </CIDE>
                         {% endif %}
-                        {% if comb.encerrante is defined %}
+                        {% if prod.comb.encerrante is defined %}
                         <encerrante>
-                            <nBico>{{ comb.encerrante.nBico }}</nBico>
-                            <nBomba>{{ comb.encerrante.nBomba }}</nBomba>
-                            <nTanque>{{ comb.encerrante.nTanque }}</nTanque>
-                            <vEncIni>{{ comb.encerrante.vEncIni }}</vEncIni>
-                            <vEncFin>{{ comb.encerrante.vEncFin }}</vEncFin>
+                            <nBico>{{ prod.comb.encerrante.nBico }}</nBico>
+                            <nBomba>{{ prod.comb.encerrante.nBomba }}</nBomba>
+                            <nTanque>{{ prod.comb.encerrante.nTanque }}</nTanque>
+                            <vEncIni>{{ prod.comb.encerrante.vEncIni }}</vEncIni>
+                            <vEncFin>{{ prod.comb.encerrante.vEncFin }}</vEncFin>
                         </encerrante>
                         {% endif %}
                     </comb>
-                    {% endfor %}
                     {% endif %}
                     {% if prod.nRECOPI is defined %}
                     <nRECOPI>{{ prod.nRECOPI }}</nRECOPI>
