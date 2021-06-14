@@ -527,3 +527,8 @@ class danfce(object):
         pdf_out = self.oPDF_IO.getvalue()
         self.oPDF_IO.close()
         fileObj.write(pdf_out)
+
+    def get_pdf(self):
+        pdf_out = self.oPDF_IO.getvalue()
+        self.oPDF_IO.close()
+        return pdf_out

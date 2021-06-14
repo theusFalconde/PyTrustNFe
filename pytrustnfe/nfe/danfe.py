@@ -1172,6 +1172,11 @@ obsCont[@xCampo='NomeVendedor']"
         self.oPDF_IO.close()
         fileObj.write(pdf_out)
 
+    def get_pdf(self):
+        pdf_out = self.oPDF_IO.getvalue()
+        self.oPDF_IO.close()
+        return pdf_out
+
     def _generate_cce(self, cce_xml=None, oXML=None, timezone=None):
         self.canvas.setLineWidth(0.2)
 
