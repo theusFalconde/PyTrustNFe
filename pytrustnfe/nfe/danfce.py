@@ -44,10 +44,10 @@ def format_number(cNumber, precision=0, group_sep=".", decimal_sep=","):
         number = float(cNumber)
         return (
             ("{:,." + str(precision) + "f}")
-            .format(number)
-            .replace(",", "X")
-            .replace(".", ",")
-            .replace("X", ".")
+                .format(number)
+                .replace(",", "X")
+                .replace(".", ",")
+                .replace("X", ".")
         )
     return ""
 
@@ -83,7 +83,7 @@ class danfce(object):
         pdfmetrics.registerFont(
             TTFont(
                 'NimbusSanL-Bold',
-                os.path.join(dir_fonts,'fonts/NimbusSanL Bold.ttf')))
+                os.path.join(dir_fonts, 'fonts/NimbusSanL Bold.ttf')))
         pdfmetrics.registerFont(
             TTFont(
                 'NimbusSanL-Regu',
@@ -124,22 +124,22 @@ class danfce(object):
         cEnd += "CNPJ: %s  " % (format_cnpj_cpf(tagtext(oNode=elem_emit, cTag="CNPJ")))
         cEnd += "IE: %s" % (tagtext(oNode=elem_emit, cTag="IE")) + "<br />"
         cEnd += (
-            tagtext(oNode=elem_emit, cTag="xLgr")
-            + ", "
-            + tagtext(oNode=elem_emit, cTag="nro")
-            + " - "
+                tagtext(oNode=elem_emit, cTag="xLgr")
+                + ", "
+                + tagtext(oNode=elem_emit, cTag="nro")
+                + " - "
         )
         cEnd += (
-            tagtext(oNode=elem_emit, cTag="xBairro")
-            + "<br />"
-            + tagtext(oNode=elem_emit, cTag="xMun")
-            + " - "
+                tagtext(oNode=elem_emit, cTag="xBairro")
+                + "<br />"
+                + tagtext(oNode=elem_emit, cTag="xMun")
+                + " - "
         )
         cEnd += (
-            tagtext(oNode=elem_emit, cTag="UF")
-            + " - "
-            + tagtext(oNode=elem_emit, cTag="CEP")
-            + "<br />"
+                tagtext(oNode=elem_emit, cTag="UF")
+                + " - "
+                + tagtext(oNode=elem_emit, cTag="CEP")
+                + "<br />"
         )
         cEnd += "Fone: " + format_telefone(tagtext(oNode=elem_emit, cTag="fone"))
 
@@ -167,12 +167,12 @@ class danfce(object):
             self.drawLine()
 
     def produtos(
-        self,
-        oXML=None,
-        el_det=None,
-        oPaginator=None,
-        list_desc=None,
-        list_cod_prod=None,
+            self,
+            oXML=None,
+            el_det=None,
+            oPaginator=None,
+            list_desc=None,
+            list_cod_prod=None,
     ):
 
         rows = [["Cód", "Descrição", "Qtde", "Un", "Unit.", "Total"]]
@@ -180,7 +180,6 @@ class danfce(object):
         rowHeights = [7]
 
         for id in range(oPaginator[0], oPaginator[1]):
-
             item = el_det[id]
             el_prod = item.find(".//{http://www.portalfiscal.inf.br/nfe}prod")
 
@@ -328,9 +327,9 @@ class danfce(object):
         access_key = tagtext(oNode=el_prot_nfe, cTag="chNFe")
 
         frase_chave_acesso = (
-            "Consulte pela Chave de Acesso em:<br />\
-%s<br />%s"
-            % (url_chave, access_key)
+                "Consulte pela Chave de Acesso em:<br />\
+    %s<br />%s"
+                % (url_chave, access_key)
         )
 
         qrcode = tagtext(oNode=el_NFeSupl, cTag="qrCode")
@@ -531,4 +530,4 @@ class danfce(object):
     def get_pdf(self):
         pdf_out = self.oPDF_IO.getvalue()
         self.oPDF_IO.close()
-        return pdf_out
+        return BytesIO(pdf_out)

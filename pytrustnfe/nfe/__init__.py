@@ -25,10 +25,10 @@ def _generate_nfe_id(**kwargs):
             "cnpj": item["infNFe"]["emit"]["cnpj_cpf"],
             "estado": item["infNFe"]["ide"]["cUF"],
             "emissao": "%s%s"
-            % (
-                item["infNFe"]["ide"]["dhEmi"][2:4],
-                item["infNFe"]["ide"]["dhEmi"][5:7],
-            ),
+                       % (
+                           item["infNFe"]["ide"]["dhEmi"][2:4],
+                           item["infNFe"]["ide"]["dhEmi"][5:7],
+                       ),
             "modelo": item["infNFe"]["ide"]["mod"],
             "serie": item["infNFe"]["ide"]["serie"],
             "numero": item["infNFe"]["ide"]["nNF"],
@@ -38,7 +38,7 @@ def _generate_nfe_id(**kwargs):
         chave_nfe = ChaveNFe(**vals)
         chave_nfe = gerar_chave(chave_nfe, "NFe")
         item["infNFe"]["Id"] = chave_nfe
-        item["infNFe"]["ide"]["cDV"] = chave_nfe[len(chave_nfe) - 1 :]
+        item["infNFe"]["ide"]["cDV"] = chave_nfe[len(chave_nfe) - 1:]
 
 
 def _render(certificado, method, sign, **kwargs):
@@ -68,7 +68,7 @@ def _render(certificado, method, sign, **kwargs):
     return xml_send
 
 
-def gerar_qrcode(id_csc: int, csc: str, xml_send: str, cert = False) -> str:
+def gerar_qrcode(id_csc: int, csc: str, xml_send: str, cert=False) -> str:
     xml = etree.fromstring(xml_send)
     signature = xml.find(
         ".//{http://www.w3.org/2000/09/xmldsig#}Signature")
@@ -104,7 +104,7 @@ def gerar_qrcode(id_csc: int, csc: str, xml_send: str, cert = False) -> str:
         estado=emit_uf,
         ambiente=tp_amb.text)
 
-    if tp_emis != 1:
+    if int(tp_emis.text) != 1:
         if signature is None:
             if cert is not False:
                 signer = Assinatura(certificado.pfx, certificado.password)
@@ -112,24 +112,19 @@ def gerar_qrcode(id_csc: int, csc: str, xml_send: str, cert = False) -> str:
             else:
                 raise Exception("XML Invalido - Sem assinatura e não "
                                 "foi enviado o certificado nos parametros")
-        digest_value = xml.find(
-            ".//{http://www.w3.org/2000/09/xmldsig#}DigestValue")
-        c_hash_qr_code = \
-            "{ch_acesso}|{versao}|{tp_amb}|{dh_emi}|" \
-            "{v_nf}|{dig_val}|{id_csc}|{csc}".format(
-                ch_acesso=chave,
-                versao=2,
-                tp_amb=tp_amb.text,
-                dh_emi=dh_emi,
-                v_nf=float(v_nf.text),
-                dig_val=digest_value.text,
-                id_csc=int(id_csc),
-                csc=csc
-            )
-        c_hash_qr_code = hashlib.sha1(c_hash_qr_code.encode()). \
-            hexdigest()
-        qr_code_url = 'p={ch_acesso}|{versao}|{tp_amb}|{dh_emi}|" \
-                                "{v_nf}|{dig_val}|{id_csc}|{hash}'.format(
+        digest_value = xml.find(".//{http://www.w3.org/2000/09/xmldsig#}DigestValue")
+        c_hash_qr_code = "{ch_acesso}|{versao}|{tp_amb}|{dh_emi}|{v_nf}|{dig_val}|{id_csc}{csc}".format(
+            ch_acesso=chave,
+            versao=2,
+            tp_amb=tp_amb.text,
+            dh_emi=dh_emi,
+            v_nf=float(v_nf.text),
+            dig_val=digest_value.text,
+            id_csc=int(id_csc),
+            csc=csc
+        )
+        c_hash_qr_code = hashlib.sha1(c_hash_qr_code.encode()).hexdigest()
+        qr_code_url = 'p={ch_acesso}|{versao}|{tp_amb}|{dh_emi}|{v_nf}|{dig_val}|{id_csc}|{hash}'.format(
             ch_acesso=chave,
             versao=2,
             tp_amb=tp_amb.text,
@@ -142,15 +137,10 @@ def gerar_qrcode(id_csc: int, csc: str, xml_send: str, cert = False) -> str:
         qrcode = url_qrcode_str + qr_code_url
         url_consulta = url_qrcode_exibicao_str
 
-        qrCode = xml.find(
-            './/{http://www.portalfiscal.inf.br/nfe}qrCode').text = \
-            qrcode
-        urlChave = xml.find(
-            './/{http://www.portalfiscal.inf.br/nfe}urlChave').text = \
-            url_consulta
+        qrCode = xml.find('.//{http://www.portalfiscal.inf.br/nfe}qrCode').text = qrcode
+        urlChave = xml.find('.//{http://www.portalfiscal.inf.br/nfe}urlChave').text = url_consulta
     else:
-        c_hash_qr_code = \
-        "{ch_acesso}|{versao}|{tp_amb}|{id_csc}|{csc}".format(
+        c_hash_qr_code = "{ch_acesso}|{versao}|{tp_amb}|{id_csc}{csc}".format(
             ch_acesso=chave,
             versao=2,
             tp_amb=tp_amb.text,
@@ -159,24 +149,19 @@ def gerar_qrcode(id_csc: int, csc: str, xml_send: str, cert = False) -> str:
         )
         c_hash_qr_code = hashlib.sha1(c_hash_qr_code.encode()).hexdigest()
 
-        qr_code_url = "p={ch_acesso}|{versao}|{tp_amb}|{id_csc}|" \
-                      "{hash}".\
-            format(
-                ch_acesso=chave,
-                versao=2,
-                tp_amb=tp_amb.text,
-                id_csc=int(id_csc),
-                hash=c_hash_qr_code
-            )
+        qr_code_url = "p={ch_acesso}|{versao}|{tp_amb}|{id_csc}|{hash}".format(
+            ch_acesso=chave,
+            versao=2,
+            tp_amb=tp_amb.text,
+            id_csc=int(id_csc),
+            hash=c_hash_qr_code
+        )
         qrcode = url_qrcode_str + qr_code_url
         url_consulta = url_qrcode_exibicao_str
-        qrCode = xml.find(
-            './/{http://www.portalfiscal.inf.br/nfe}qrCode').text = \
-            qrcode
-        urlChave = xml.find(
-            './/{http://www.portalfiscal.inf.br/nfe}urlChave').text = \
-            url_consulta
-    return etree.tostring(xml)
+        qrCode = xml.find('.//{http://www.portalfiscal.inf.br/nfe}qrCode').text = qrcode
+        urlChave = xml.find('.//{http://www.portalfiscal.inf.br/nfe}urlChave').text = url_consulta
+    return etree.tostring(xml).decode()
+
 
 def _get_session(certificado):
     cert, key = extract_cert_and_key_from_pfx(certificado.pfx, certificado.password)
@@ -260,6 +245,16 @@ def xml_recepcao_evento_cancelamento(certificado, **kwargs):  # Assinar
 def recepcao_evento_cancelamento(certificado, **kwargs):  # Assinar
     if "xml" not in kwargs:
         kwargs["xml"] = xml_recepcao_evento_cancelamento(certificado, **kwargs)
+    return _send(certificado, "RecepcaoEvento", **kwargs)
+
+
+def xml_recepcao_evento(certificado, **kwargs):  # Assinar
+    return _render(certificado, "RecepcaoEvento", True, **kwargs)
+
+
+def recepcao_evento(certificado, **kwargs):  # Assinar
+    if "xml" not in kwargs:
+        kwargs["xml"] = xml_recepcao_evento(certificado, **kwargs)
     return _send(certificado, "RecepcaoEvento", **kwargs)
 
 

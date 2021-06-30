@@ -1063,6 +1063,9 @@ obsCont[@xCampo='NomeVendedor']"
         el_total = oXML.find(".//{http://www.portalfiscal.inf.br/nfe}total")
         el_emit = oXML.find(".//{http://www.portalfiscal.inf.br/nfe}emit")
 
+        if el_ide is None and el_dest is None and el_total is None and el_emit is None:
+            return
+
         # self.nlin = self.height-self.nBottom-18  # 17 altura recibo
         nW = 40
         nH = 17
@@ -1175,7 +1178,7 @@ obsCont[@xCampo='NomeVendedor']"
     def get_pdf(self):
         pdf_out = self.oPDF_IO.getvalue()
         self.oPDF_IO.close()
-        return pdf_out
+        return BytesIO(pdf_out)
 
     def _generate_cce(self, cce_xml=None, oXML=None, timezone=None):
         self.canvas.setLineWidth(0.2)

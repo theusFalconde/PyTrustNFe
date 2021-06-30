@@ -17,6 +17,16 @@
         <xJust>{{ evento.xJust|normalize|escape }}</xJust>
         <xCorrecao>{{ evento.xCorrecao|normalize|escape }}</xCorrecao>
         <xCondUso>{{ evento.xCondUso }}</xCondUso>
+        <cOrgaoAutor>{{ evento.cOrgaoAutor }}</cOrgaoAutor>
+        <tpAutor>{{ evento.tpAutor }}</tpAutor>
+        <verAplic>{{ evento.verAplic }}</verAplic>
+        <dhEntrega>{{ evento.dhEntrega }}</dhEntrega>
+        <nDoc>{{ evento.nDoc }}</nDoc>
+        <xNome>{{ evento.xNome|normalize|escape }}</xNome>
+        <latGPS>{{ evento.latGPS }}</latGPS>
+        <longGPS>{{ evento.longGPS }}</longGPS>
+        <hashComprovante>{{ evento.hashComprovante }}</hashComprovante>
+        <dhHashComprovante>{{ evento.dhHashComprovante }}</dhHashComprovante>
       </detEvento>
     </infEvento>
   </evento>
